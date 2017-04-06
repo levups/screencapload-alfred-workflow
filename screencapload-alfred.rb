@@ -27,6 +27,11 @@ if File.exists?(gm = "/usr/local/bin/gm")
   `#{gm} convert "#{tempfile}" -trim "#{trimmed_tempfile}" && mv "#{trimmed_tempfile}" "#{tempfile}"`
 end
 
+# Recompress PNG color depth for faster upload/download
+if File.exist?(pngquant = "/usr/local/bin/pngquant")
+  `#{pngquant} --force --skip-if-larger --ext ".png" "#{tempfile}"`
+end
+
 # Recompress PNG for faster upload/download
 if File.exists?(optipng = "/usr/local/bin/optipng")
   `#{optipng} "#{tempfile}"`
